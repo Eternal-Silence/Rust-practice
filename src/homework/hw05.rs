@@ -1,20 +1,10 @@
 fn gcd(mut a: u32, mut b: u32) -> u32 {
-    if a > b{
-        while b != 0{
-            let temp = b;
-            b = a % b;
-            a = temp
-        }
-        return a
+    while b != 0{
+        let temp = b;
+        b = a % b;
+        a = temp
     }
-    else {
-        while a != 0{
-            let temp = a;
-            a = b % a;
-            b = temp
-        }
-        return b
-    }
+    return a
 }
 
 #[test]

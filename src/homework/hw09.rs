@@ -1,15 +1,17 @@
-fn rotate(s: String, n: isize) -> String {
-    let len = s.len();
+fn rotate(s: &str, shift: isize) -> String {
+    let chars: Vec<char> = s.chars().collect();
+    let len = chars.len();
     if len == 0 {
-        return s.to_string();
+        return String::new();
     }
 
-    // Нормалізуємо зсув у межах [0, len)
     let shift = ((shift % len as isize + len as isize) % len as isize) as usize;
-
-    // Здійснюємо правий зсув (цикл вправо)
     let split_point = len - shift;
-    format!("{}{}", &s[split_point..], &s[..split_point])
+
+    chars[split_point..]
+        .iter()
+        .chain(&chars[..split_point])
+        .collect()
 }
 
 #[test]
@@ -32,7 +34,7 @@ fn test() {
         .iter()
         .for_each(|(n, exp)|
             assert_eq!(
-                rotate(s, n),
+                rotate(s, *n),
                 exp.to_string()
             )
         );
